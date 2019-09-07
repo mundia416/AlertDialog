@@ -30,7 +30,7 @@ class AlertDialog(private val activity: Activity,private val alertType: Int = TY
     }
 
 
-    private val dialog = Dialog(activity)
+    val dialog = Dialog(activity)
 
     var onOkClicked: (() -> Unit)? = null
     var onConfirmClicked: (() -> Unit)? = null

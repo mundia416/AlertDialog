@@ -2,5 +2,7 @@
     <string name="app_name">AlertLib</string>
 
     <!-- //todo translate into multiple languages -->
-    <string name="tv_ok">OK</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
 </resources>

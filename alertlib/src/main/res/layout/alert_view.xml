@@ -15,18 +15,9 @@
         android:orientation="vertical">
 
 
-        <include layout="@layout/body_view"/>
+        <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/contentContainer"/>
 
-        <TextView
-                android:id="@+id/tvOk"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/tv_ok"
-                android:textStyle="bold"
-                android:textSize="14sp"
-                android:textColor="@android:color/black"/>
+        <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/buttonsContainer"/>
 
     </LinearLayout>
 

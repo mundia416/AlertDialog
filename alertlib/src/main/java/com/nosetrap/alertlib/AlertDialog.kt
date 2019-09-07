@@ -11,6 +11,7 @@ import android.view.Window
 import android.view.WindowManager
 import androidx.annotation.ColorRes
 import androidx.annotation.LayoutRes
+import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.ok_alert_view.*
 import kotlinx.android.synthetic.main.alert_view.*
 import kotlinx.android.synthetic.main.body_view.*
@@ -99,7 +100,7 @@ class AlertDialog(private val activity: Activity,private val alertType: Int = TY
             }
         }
 
-        dialog.horizontalLine.setBackgroundColor(lineColor)
+        dialog.horizontalLine.setBackgroundColor(ContextCompat.getColor(activity!!,lineColor))
 
     }
 

@@ -55,7 +55,7 @@ class AlertDialog private constructor(private val activity: Activity) {
 
         private val layoutInflater = activity.layoutInflater
 
-        val alertDialog = AlertDialog(activity)
+        private val alertDialog = AlertDialog(activity)
 
         fun setCustomView(@LayoutRes view: Int) {
             this.view = view

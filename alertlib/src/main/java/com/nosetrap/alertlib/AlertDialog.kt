@@ -2,13 +2,11 @@ package com.nosetrap.alertlib
 
 import android.app.Activity
 import android.app.Dialog
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.util.DisplayMetrics
-import android.view.Gravity
-import android.view.View
-import android.view.Window
-import android.view.WindowManager
+import android.view.*
 import androidx.annotation.ColorRes
 import androidx.annotation.LayoutRes
 import androidx.core.content.ContextCompat
@@ -22,9 +20,9 @@ import kotlinx.android.synthetic.main.confirm_alert_view.*
  *  make sure to call [build] before calling [show]
 *
  */
-class AlertDialog private constructor(private val activity: Activity) {
+class AlertDialog private constructor(context: Context) {
 
-    val dialog = Dialog(activity)
+    val dialog = Dialog(context)
 
     fun dismiss() {
         dialog.dismiss()
@@ -38,7 +36,7 @@ class AlertDialog private constructor(private val activity: Activity) {
     /**
      * use the builder class to create an alert dialog
      */
-    class Builder(private val activity: Activity, private val alertType: AlertType = AlertType.TYPE_NORMAL) {
+    class Builder(private val context: Context, private val alertType: AlertType = AlertType.TYPE_NORMAL) {
 
         var onOkClicked: (() -> Unit)? = null
         var onConfirmClicked: (() -> Unit)? = null
@@ -53,9 +51,10 @@ class AlertDialog private constructor(private val activity: Activity) {
         @ColorRes
         private var lineColor: Int = R.color.sky_blue
 
-        private val layoutInflater = activity.layoutInflater
+        private val layoutInflater = LayoutInflater.from(context)
+        private val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
 
-        private val alertDialog = AlertDialog(activity)
+        private val alertDialog = AlertDialog(context)
 
         fun setCustomView(@LayoutRes view: Int) {
             this.view = view
@@ -71,7 +70,7 @@ class AlertDialog private constructor(private val activity: Activity) {
             setAlertView()
 
             val dm = DisplayMetrics()
-            activity.windowManager.defaultDisplay.getMetrics(dm)
+            windowManager.defaultDisplay.getMetrics(dm)
             val lp = WindowManager.LayoutParams()
             val window = alertDialog.dialog.window
             window!!.setGravity(Gravity.CENTER)
@@ -121,7 +120,7 @@ class AlertDialog private constructor(private val activity: Activity) {
                 }
             }
 
-            alertDialog.dialog.horizontalLine.setBackgroundColor(ContextCompat.getColor(activity!!, lineColor))
+            alertDialog.dialog.horizontalLine.setBackgroundColor(ContextCompat.getColor(context, lineColor))
 
         }
 

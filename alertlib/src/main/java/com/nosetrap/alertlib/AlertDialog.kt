@@ -94,7 +94,7 @@ class AlertDialog private constructor(context: Context) {
             lp.windowAnimations = R.style.DialogAnimation
             window.attributes = lp
 
-            if(hasSetCustomView) {
+            if(!hasSetCustomView) {
                 alertDialog.dialog.findViewById<TextView>(R.id.tvTitle).text = titleText
                 alertDialog.dialog.findViewById<TextView>(R.id.tvMessage).text = contentText
             }

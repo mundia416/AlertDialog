@@ -7,6 +7,9 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.util.DisplayMetrics
 import android.view.*
+import android.widget.Button
+import android.widget.FrameLayout
+import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
@@ -92,8 +95,8 @@ class AlertDialog private constructor(context: Context) {
             window.attributes = lp
 
             if(hasSetCustomView) {
-                alertDialog.dialog.tvTitle.text = titleText
-                alertDialog.dialog.tvMessage.text = contentText
+                alertDialog.dialog.findViewById<TextView>(R.id.tvTitle).text = titleText
+                alertDialog.dialog.findViewById<TextView>(R.id.tvMessage).text = contentText
             }
 
             setOnClickListeners()
@@ -105,16 +108,16 @@ class AlertDialog private constructor(context: Context) {
             alertDialog.dialog.setContentView(R.layout.alert_view)
 
             val addView = layoutInflater.inflate(view, null, false)
-            alertDialog.dialog.contentContainer.addView(addView)
+            alertDialog.dialog.findViewById<FrameLayout>(R.id.contentContainer).addView(addView)
 
             when (alertType) {
                 AlertType.TYPE_OK -> {
-                    alertDialog.dialog.buttonsContainer.addView(
+                    alertDialog.dialog.findViewById<FrameLayout>(R.id.buttonsContainer).addView(
                         layoutInflater.inflate(R.layout.ok_alert_view, null, false)
                     )
                 }
                 AlertType.TYPE_CONFIRM -> {
-                    alertDialog.dialog.buttonsContainer.addView(
+                    alertDialog.dialog.findViewById<FrameLayout>(R.id.buttonsContainer).addView(
                         layoutInflater.inflate(
                             R.layout.confirm_alert_view,
                             null,
@@ -123,31 +126,31 @@ class AlertDialog private constructor(context: Context) {
                     )
                 }
                 AlertType.TYPE_NORMAL -> {
-                    alertDialog.dialog.horizontalLine.visibility = View.GONE
+                    alertDialog.dialog.findViewById<View>(R.id.horizontalLine).visibility = View.GONE
                 }
             }
 
-            alertDialog.dialog.horizontalLine.setBackgroundColor(ContextCompat.getColor(context, lineColor))
+            alertDialog.dialog.findViewById<View>(R.id.horizontalLine).setBackgroundColor(ContextCompat.getColor(context, lineColor))
 
         }
 
         private fun setOnClickListeners() {
             when (alertType) {
                 AlertType.TYPE_OK -> {
-                    alertDialog.dialog.btnOk.setText(okText)
-                    alertDialog.dialog.btnOk.setOnClickListener {
+                    alertDialog.dialog.findViewById<Button>(R.id.btnOk).setText(okText)
+                    alertDialog.dialog.findViewById<Button>(R.id.btnOk).setOnClickListener {
                         alertDialog.dialog.dismiss()
                         onOkClicked?.invoke()
                     }
                 }
                 AlertType.TYPE_CONFIRM -> {
-                    alertDialog.dialog.btnConfirm.setText(confirmText)
-                    alertDialog.dialog.btnCancel.setText(cancelText)
-                    alertDialog.dialog.btnConfirm.setOnClickListener {
+                    alertDialog.dialog.findViewById<Button>(R.id.btnConfirm).setText(confirmText)
+                    alertDialog.dialog.findViewById<Button>(R.id.btnCancel).setText(cancelText)
+                    alertDialog.dialog.findViewById<Button>(R.id.btnConfirm).setOnClickListener {
                         alertDialog.dialog.dismiss()
                         onConfirmClicked?.invoke()
                     }
-                    alertDialog.dialog.btnCancel.setOnClickListener {
+                    alertDialog.dialog.findViewById<Button>(R.id.btnCancel).setOnClickListener {
                         alertDialog.dialog.dismiss()
                         onCancelClicked?.invoke()
                     }

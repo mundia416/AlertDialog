@@ -9,6 +9,7 @@ import android.util.DisplayMetrics
 import android.view.*
 import androidx.annotation.ColorRes
 import androidx.annotation.LayoutRes
+import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.ok_alert_view.*
 import kotlinx.android.synthetic.main.alert_view.*
@@ -22,7 +23,7 @@ import kotlinx.android.synthetic.main.confirm_alert_view.*
  */
 class AlertDialog private constructor(context: Context) {
 
-    val dialog = Dialog(context)
+    val dialog = Dialog(context, R.style.AlertDialog)
 
     fun dismiss() {
         dialog.dismiss()
@@ -44,6 +45,11 @@ class AlertDialog private constructor(context: Context) {
 
         var titleText: String = ""
         var contentText: String = ""
+
+         var okText: String =  context.getString(R.string.ok)
+        var confirmText: String = context.getString(R.string.confirm)
+         var cancelText: String = context.getString(R.string.cancel)
+
 
         @LayoutRes
         private var view: Int = R.layout.body_view
@@ -99,11 +105,7 @@ class AlertDialog private constructor(context: Context) {
             when (alertType) {
                 AlertType.TYPE_OK -> {
                     alertDialog.dialog.buttonsContainer.addView(
-                        layoutInflater.inflate(
-                            R.layout.ok_alert_view,
-                            null,
-                            false
-                        )
+                        layoutInflater.inflate(R.layout.ok_alert_view, null, false)
                     )
                 }
                 AlertType.TYPE_CONFIRM -> {
@@ -127,12 +129,15 @@ class AlertDialog private constructor(context: Context) {
         private fun setOnClickListeners() {
             when (alertType) {
                 AlertType.TYPE_OK -> {
+                    alertDialog.dialog.btnOk.setText(okText)
                     alertDialog.dialog.btnOk.setOnClickListener {
                         alertDialog.dialog.dismiss()
                         onOkClicked?.invoke()
                     }
                 }
                 AlertType.TYPE_CONFIRM -> {
+                    alertDialog.dialog.btnConfirm.setText(confirmText)
+                    alertDialog.dialog.btnCancel.setText(cancelText)
                     alertDialog.dialog.btnConfirm.setOnClickListener {
                         alertDialog.dialog.dismiss()
                         onConfirmClicked?.invoke()

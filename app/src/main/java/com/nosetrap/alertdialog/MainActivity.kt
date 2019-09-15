@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.nosetrap.alertlib.AlertDialog
+import com.nosetrap.alertlib.AlertType
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -13,20 +14,28 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         btnNormal.setOnClickListener {
-            AlertDialog(this).show("testing title","message")
+           val builder =  AlertDialog.Builder(this)
+            builder.contentText = "message"
+            builder.titleText =  "testing title"
+               builder.build().show()
         }
 
         btnOk.setOnClickListener {
-            val dialog = AlertDialog(this,AlertDialog.TYPE_OK)
-            dialog.onOkClicked = { Log.d("AlertDialog test","On Ok Clicked")}
-            dialog.show("testing Ok title"," Ok message")
+            val builder =  AlertDialog.Builder(this,AlertType.TYPE_OK)
+            builder.contentText = " Ok message"
+            builder.titleText =  "testing Ok title"
+            builder.okText = "No"
+            builder.onOkClicked = { Log.d("AlertDialog test","On Ok Clicked")}
+            builder.build().show()
         }
 
         btnConfirm.setOnClickListener {
-            val dialog = AlertDialog(this,AlertDialog.TYPE_CONFIRM)
-            dialog.onConfirmClicked = { Log.d("AlertDialog test","On Confirm Clicked")}
-            dialog.onCancelClicked = { Log.d("AlertDialog test","On Cancel Clicked")}
-            dialog.show("testing confirm title","confirm message")
+            val builder =  AlertDialog.Builder(this,AlertType.TYPE_CONFIRM)
+            builder.contentText = " Ok message"
+            builder.titleText =  "testing Ok title"
+            builder.onConfirmClicked = { Log.d("AlertDialog test","On Confirm Clicked")}
+            builder.onCancelClicked = { Log.d("AlertDialog test","On Cancel Clicked")}
+            builder.build().show()
         }
     }
 }

@@ -62,7 +62,10 @@ class AlertDialog private constructor(context: Context) {
 
         private val alertDialog = AlertDialog(context)
 
+        private var hasSetCustomView = false
+
         fun setCustomView(@LayoutRes view: Int) {
+            hasSetCustomView = true
             this.view = view
         }
 
@@ -88,8 +91,10 @@ class AlertDialog private constructor(context: Context) {
             lp.windowAnimations = R.style.DialogAnimation
             window.attributes = lp
 
-            alertDialog.dialog.tvTitle.text = titleText
-            alertDialog.dialog.tvMessage.text = contentText
+            if(hasSetCustomView) {
+                alertDialog.dialog.tvTitle.text = titleText
+                alertDialog.dialog.tvMessage.text = contentText
+            }
 
             setOnClickListeners()
 
